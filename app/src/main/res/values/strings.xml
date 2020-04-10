@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">iNeedTickets-QR-Reader</string>
+    <string name="app_name">iNeedTickets QR Scanner</string>
     <string name="start_scan">Start scan</string>
 </resources>
