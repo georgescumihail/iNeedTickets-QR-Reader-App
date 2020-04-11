@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements IVolleyCallback{
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                successInfo.setText("");
+                responseDetails.setText("");
                 IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
                 integrator.setOrientationLocked(false);
@@ -63,8 +65,9 @@ public class MainActivity extends AppCompatActivity implements IVolleyCallback{
 
     @Override
     public void VolleyResponse(ValidationResponseModel ticketValidation) {
+
         if(ticketValidation != null && !ticketValidation.hasError) {
-            if(ticketValidation.isValid){
+            if(ticketValidation.isTicketValid){
                 successInfo.setTextColor(Color.parseColor("#99dd99"));
                 successInfo.setText("Success!");
                 responseDetails.setText(ticketValidation.eventName + " " + ticketValidation.areaName + " " + ticketValidation.locationName + " " + ticketValidation.eventDate);
@@ -72,11 +75,10 @@ public class MainActivity extends AppCompatActivity implements IVolleyCallback{
             else{
                 successInfo.setTextColor(Color.parseColor("#dd9999"));
                 successInfo.setText("This ticket was already used");
-                responseDetails.setText("");
             }
         }
         else{
-            Toast.makeText(this, "Null", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "There was an error, try again", Toast.LENGTH_LONG).show();
         }
     }
 }
